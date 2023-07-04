@@ -5,14 +5,15 @@ import 'package:intl/intl.dart';
 class Event {
   final String name;
   final DateTime date;
-  const Event(this.name, this.date);
+  const Event({required this.name, required this.date});
 
   @override
   String toString() => name;
 }
 
 class TableEventsCalender extends StatefulWidget {
-  const TableEventsCalender({super.key});
+  final Map<String, List<DateTime>> userLogs;
+  const TableEventsCalender({required this.userLogs, super.key});
 
   @override
   _TableEventsCalenderState createState() => _TableEventsCalenderState();
@@ -20,33 +21,9 @@ class TableEventsCalender extends StatefulWidget {
 
 class _TableEventsCalenderState extends State<TableEventsCalender> {
   late final ValueNotifier<List<Event>> _selectedEvents;
-  final CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
-  List<DateTime> kim = [
-    DateTime(2023, 6, 1),
-    DateTime(2023, 6, 10),
-    DateTime(2023, 6, 20)
-  ];
-  List<DateTime> song = [
-    DateTime(2023, 6, 1),
-    DateTime(2023, 6, 4),
-    DateTime(2023, 6, 13),
-    DateTime(2023, 6, 22)
-  ];
-  List<DateTime> han = [
-    DateTime(2023, 6, 1),
-    DateTime(2023, 6, 6),
-    DateTime(2023, 6, 16),
-    DateTime(2023, 6, 22)
-  ];
-  List<DateTime> kwon = [
-    DateTime(2023, 6, 1),
-    DateTime(2023, 6, 8),
-    DateTime(2023, 6, 12),
-    DateTime(2023, 6, 28)
-  ];
   @override
   void initState() {
     super.initState();
@@ -61,21 +38,36 @@ class _TableEventsCalenderState extends State<TableEventsCalender> {
     super.dispose();
   }
 
+  dynamic getLog({required String name, required DateTime day}) {
+    if (widget.userLogs[name] == null) return null;
+    for (var log in widget.userLogs[name]!) {
+      if ('${day.month}/${day.day}' == '${log.month}/${log.day}') {
+        return log;
+      }
+    }
+    return null;
+  }
+
   List<Event> _getEventsForDay(DateTime day) {
     List<Event> events = [];
-    if (kim.contains(DateTime(day.year, day.month, day.day))) {
+    var kimLog = getLog(day: day, name: '김연구');
+    var hanLog = getLog(day: day, name: '한지선');
+    var songLog = getLog(day: day, name: '송준호');
+    var kwonLog = getLog(day: day, name: '권은비');
+
+    if (kimLog is DateTime) {
       events.add(
-        Event('김연구', day.toLocal()),
+        Event(name: '김연구', date: kimLog),
       );
     }
-    if (han.contains(DateTime(day.year, day.month, day.day))) {
-      events.add(Event('한지선', day.toLocal()));
+    if (hanLog is DateTime) {
+      events.add(Event(name: '한지선', date: day.toLocal()));
     }
-    if (song.contains(DateTime(day.year, day.month, day.day))) {
-      events.add(Event('송준호', day.toLocal()));
+    if (songLog is DateTime) {
+      events.add(Event(name: '송준호', date: day.toLocal()));
     }
-    if (kwon.contains(DateTime(day.year, day.month, day.day))) {
-      events.add(Event('권은비', day.toLocal()));
+    if (kwonLog is DateTime) {
+      events.add(Event(name: '권은비', date: day.toLocal()));
     }
     return events;
   }
@@ -193,7 +185,11 @@ class _TableEventsCalenderState extends State<TableEventsCalender> {
                         vertical: 5,
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(),
+                        border: Border.all(
+                          color: getColor(
+                            value[index].name,
+                          ),
+                        ),
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: ListTile(
