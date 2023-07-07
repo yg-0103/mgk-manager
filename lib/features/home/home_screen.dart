@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:mgk_manager/features/home/widgets/table_event_calendar.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -44,7 +45,10 @@ class UserLogsNotifier extends StateNotifier<Map<String, List<DateTime>>> {
 }
 
 class HomeScreen extends HookConsumerWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final DatabaseReference dbRef =
+      FirebaseDatabase.instance.ref().child('UserLogs');
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -67,7 +71,12 @@ class HomeScreen extends HookConsumerWidget {
           fixedSize: const Size.fromHeight(50),
         ),
         onPressed: () {
-          print('pressed');
+          Map<String, dynamic> userLog = {
+            'name': '김연구',
+            'date': DateTime.now()
+          };
+
+          dbRef.push().set(userLog);
           ref
               .read(userLogsProvider.notifier)
               .addUserLog(name: '김연구', date: DateTime.now());
