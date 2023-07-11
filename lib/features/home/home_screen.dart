@@ -62,7 +62,7 @@ class HomeScreen extends HookConsumerWidget {
       ),
       floatingActionButton: TextButton(
         style: TextButton.styleFrom(
-          backgroundColor: Colors.lightBlue,
+          backgroundColor: const Color(0x001c64d9),
           foregroundColor: Colors.white,
           textStyle: const TextStyle(
             fontSize: 16,
