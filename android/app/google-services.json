@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "319538555456",
+    "firebase_url": "https://mgk-manager-default-rtdb.firebaseio.com",
     "project_id": "mgk-manager",
     "storage_bucket": "mgk-manager.appspot.com"
   },
@@ -29,6 +30,13 @@
             {
               "client_id": "319538555456-317rtkb9eqcn3m2biesqj7q04i7l0crl.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "319538555456-opgegd22o95pnu0g78cq536v6f2vt6du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mgkManager.RunnerTests"
+              }
             }
           ]
         }
