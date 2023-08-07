@@ -22,7 +22,7 @@ class UserModel {
   }
 }
 
-class SignInViewModel extends AsyncNotifier {
+class SignInViewModel extends AsyncNotifier<void> {
   late final AuthenticationRepository _authRepo;
 
   @override
@@ -30,14 +30,18 @@ class SignInViewModel extends AsyncNotifier {
     _authRepo = ref.read(authRepo);
   }
 
-  FutureOr<void> login() async {
+  FutureOr<void> signIn() async {
     state = const AsyncValue.loading();
-    final form = ref.read(loginForm);
+    final form = ref.read(signInForm);
 
     state = await AsyncValue.guard(
-      () async => await _authRepo.login(form['email'], form['password']),
+      () async => await _authRepo.signIn(form['email'], form['password']),
     );
   }
 }
 
-final loginForm = StateProvider((ref) => {});
+final signInForm = StateProvider((ref) => { });
+
+final signInProvider = AsyncNotifierProvider<SignInViewModel, void>(
+  () => SignInViewModel(),
+);

@@ -5,6 +5,7 @@ import 'package:mgk_manager/features/authentication/login_screen.dart';
 import 'package:mgk_manager/features/home/home_screen.dart';
 
 final routerProvider = Provider((ref) {
+  ref.watch(authState);
   return GoRouter(
     initialLocation: "/home",
     redirect: (context, state) {

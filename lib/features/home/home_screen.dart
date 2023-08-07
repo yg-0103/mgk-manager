@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mgk_manager/features/authentication/authentication_repo.dart';
 import 'package:mgk_manager/features/home/widgets/table_event_calendar.dart';
 
 final userLogsProvider =
@@ -49,10 +50,15 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userLogs = ref.watch(userLogsProvider);
+    final user = ref.read(authRepo).user;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('MGK'),
-      ),
+      appBar: AppBar(title: const Text('MGK'), actions: <Widget>[
+        IconButton(
+          icon: const Icon(Icons.logout_sharp),
+          tooltip: 'Logout!',
+          onPressed: () => {ref.read(authRepo).signOut()},
+        ),
+      ]),
       body: TableEventsCalender(
         userLogs: userLogs,
       ),

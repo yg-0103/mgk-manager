@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -72,16 +75,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'mgk-manager.appspot.com',
     iosClientId: '319538555456-ue6p0lif42rqs77fp69b0ds8afkfbi5f.apps.googleusercontent.com',
     iosBundleId: 'com.example.mgkManager',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDBoMLzSCJ-0Ehy8oaeTAZBmI17ZALITv8',
-    appId: '1:319538555456:ios:b435a53d06458f48f74da5',
-    messagingSenderId: '319538555456',
-    projectId: 'mgk-manager',
-    databaseURL: 'https://mgk-manager-default-rtdb.firebaseio.com',
-    storageBucket: 'mgk-manager.appspot.com',
-    iosClientId: '319538555456-opgegd22o95pnu0g78cq536v6f2vt6du.apps.googleusercontent.com',
-    iosBundleId: 'com.example.mgkManager.RunnerTests',
   );
 }
