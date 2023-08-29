@@ -83,10 +83,10 @@ class _TableEventsCalenderState extends State<TableEventsCalender> {
     }
   }
 
-  MaterialColor getColor(String name) {
+  Color getColor(String name) {
     switch (name) {
       case '김연구':
-        return Colors.red;
+        return const Color(0xffff5252);
       case '한지선':
         return Colors.blue;
 

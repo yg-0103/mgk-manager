@@ -3,25 +3,6 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mgk_manager/features/authentication/authentication_repo.dart';
 
-class UserModel {
-  final String? id;
-  final String name;
-  final String email;
-  final String password;
-  final int color;
-
-  const UserModel(
-      {this.id,
-      required this.name,
-      required this.color,
-      required this.email,
-      required this.password});
-
-  toJson() {
-    return {"name": name, "color": color, "email": email, "password": password};
-  }
-}
-
 class SignInViewModel extends AsyncNotifier<void> {
   late final AuthenticationRepository _authRepo;
 
@@ -40,7 +21,7 @@ class SignInViewModel extends AsyncNotifier<void> {
   }
 }
 
-final signInForm = StateProvider((ref) => { });
+final signInForm = StateProvider((ref) => {});
 
 final signInProvider = AsyncNotifierProvider<SignInViewModel, void>(
   () => SignInViewModel(),
