@@ -51,7 +51,7 @@ class UserLogsNotifier extends StateNotifier<Map<String, List<DateTime>>> {
       name: [...(state[name] ?? []), date]
     };
 
-    await ref.read(userRepo).updateLogs(UserLogsModel(
+    await ref.read(userRepo).updateLog(UserLogsModel(
         userColor: userColor, name: name, userId: userId, date: [date]));
   }
 }

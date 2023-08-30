@@ -15,7 +15,7 @@ class UserRepository {
     return doc.data();
   }
 
-  Future<Map<String, dynamic>?> updateLogs(UserLogsModel userLog) async {
+  Future<Map<String, dynamic>?> updateLog(UserLogsModel userLog) async {
     final userLogs = await findLogs(userLog.userId);
     final userLogModel = UserLogsModel.fromJson(userLogs!);
 
