@@ -6,17 +6,18 @@ import 'package:mgk_manager/features/authentication/user_models/user_profile_mod
 import 'package:mgk_manager/features/authentication/user_repo.dart';
 
 class UsersViewModel extends AsyncNotifier<UserProfileModel> {
-  late final AuthenticationRepository _authRepo;
-  late final UserRepository _userRepo;
+  late AuthenticationRepository _authRepo;
+  late UserRepository _userRepo;
 
   @override
   FutureOr<UserProfileModel> build() async {
+    ref.watch(authState);
+
     _authRepo = ref.read(authRepo);
     _userRepo = ref.read(userRepo);
-
     if (_authRepo.isLoggedIn) {
       final userProfile = await _userRepo.findProfile(_authRepo.user!.uid);
-
+      print({userProfile});
       if (userProfile != null) {
         return UserProfileModel.fromJson(userProfile);
       }

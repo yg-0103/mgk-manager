@@ -17,7 +17,7 @@ class UserLogsModel {
         name = '',
         date = [DateTime.now()];
 
-  UserLogsModel.fromJson(Map<String, dynamic> json)
+  UserLogsModel.fromJson(Map<dynamic, dynamic> json)
       : userId = json['userId'],
         userColor = json['userColor'],
         name = json['name'],

@@ -48,7 +48,6 @@ class _LoginFormState extends ConsumerState<LoginForm> {
       isSubmitting = true;
     });
     await ref.read(signInProvider.notifier).signIn();
-
     setState(() {
       isSubmitting = false;
     });

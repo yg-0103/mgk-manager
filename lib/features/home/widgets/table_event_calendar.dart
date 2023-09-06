@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +13,7 @@ class Event {
 }
 
 class TableEventsCalender extends StatefulWidget {
-  final Map<String, List<DateTime>> userLogs;
+  final Map<String, dynamic> userLogs;
   const TableEventsCalender({required this.userLogs, super.key});
 
   @override
@@ -41,11 +42,11 @@ class _TableEventsCalenderState extends State<TableEventsCalender> {
   dynamic getLog({required String name, required DateTime day}) {
     if (widget.userLogs[name] == null) return null;
     for (var log in widget.userLogs[name]!) {
-      if ('${day.month}/${day.day}' == '${log.month}/${log.day}') {
+      if ('${day.month}/${day.day}' ==
+          '${log.toDate().month}/${log.toDate().day}') {
         return log;
       }
     }
-    return null;
   }
 
   List<Event> _getEventsForDay(DateTime day) {
@@ -55,18 +56,16 @@ class _TableEventsCalenderState extends State<TableEventsCalender> {
     var songLog = getLog(day: day, name: '송준호');
     var kwonLog = getLog(day: day, name: '권은비');
 
-    if (kimLog is DateTime) {
-      events.add(
-        Event(name: '김연구', date: kimLog),
-      );
+    if (kimLog is Timestamp) {
+      events.add(Event(name: '김연구', date: day.toLocal()));
     }
-    if (hanLog is DateTime) {
+    if (hanLog is Timestamp) {
       events.add(Event(name: '한지선', date: day.toLocal()));
     }
-    if (songLog is DateTime) {
+    if (songLog is Timestamp) {
       events.add(Event(name: '송준호', date: day.toLocal()));
     }
-    if (kwonLog is DateTime) {
+    if (kwonLog is Timestamp) {
       events.add(Event(name: '권은비', date: day.toLocal()));
     }
     return events;
